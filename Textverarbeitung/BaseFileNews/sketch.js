@@ -1,42 +1,43 @@
-let txt;
+let table;
 
 let dict = {};
-let markovText = "";
 let currentWord = "";
+
 function preload() {
-    txt = loadTable(`../../assets/Schlagzeilen.csv`, 'ssv');
-    
+    table = loadTable(`../../assets/Schlagzeilen.csv`, 'ssv');
+
 }
+
+
 
 function setup() {
 
-    
+    console.log(table.rows[0])
     createCanvas(800, 800);
-    
-    print(txt);
 
-    // createMarkov();
-    // generateFirstWord();
-    //
-    // setInterval(() => {
-    //     generateNextWord();
-    // }, 100)
+    print(table);
+
+    createMarkov();
+    //generateFirstWord();
+    generateFirstWordWithQuotationMark();
+
+    setInterval(() => {
+        generateNextWord();
+    }, 100)
 }
 
 function draw() {
     background(200);
-    
-    text(markovText, 10, 30, width - 20, height - 20);
+    text("«" , 10, 30, width - 20, height - 20);
+    text(markovText, 15, 30, width - 20, height - 20);
     fill(0);
-    
+
 }
 
 function createMarkov() {
     let temp = [];
 
-    txt.forEach(line => temp = [...temp, ...line.split(" ")]);
-
-
+    table.rows.forEach(row => temp = [...temp, ...row.arr[0].split(" ")]);
 
 
     temp.forEach((word, i) => {
@@ -51,24 +52,18 @@ function createMarkov() {
         }
     })
 
-    //console.log(dict);
+    console.log(dict);
 }
 
-function generateFirstWord() {
 
+function generateFirstWordWithQuotationMark() {
+    let wordsThatStartWithQuote = Object.keys(dict).filter(key => key.startsWith('«'))
 
+    let randomWordsThatStartWithQuote = wordsThatStartWithQuote[getRandomInt(wordsThatStartWithQuote.length)];
 
-    let wordsThatEndWithDOT = Object.keys(dict).filter(key => key.endsWith("."))
-
-
-
-    let randomWordThatEndWithDot = wordsThatEndWithDOT[getRandomInt(wordsThatEndWithDOT.length)];
-
-    currentWord = markovText = dict[randomWordThatEndWithDot][getRandomInt(dict[randomWordThatEndWithDot].length)];
-
-    console.log(markovText);
-
+    currentWord = markovText = dict[randomWordsThatStartWithQuote][getRandomInt(dict[randomWordsThatStartWithQuote].length)];
 }
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -77,7 +72,9 @@ function getRandomInt(max) {
 function generateNextWord() {
     let nextWord = dict[currentWord][getRandomInt(dict[currentWord].length)];
     currentWord = nextWord;
+    if (currentWord === undefined) return;
     markovText += ` ${nextWord}`;
+    
 }
 
 
