@@ -1,48 +1,50 @@
+//.csv Tabelle
 let table;
 
+//Liste für Folgewörter
 let dict = {};
+
 let currentWord = "";
 
+//Generierter Text
+let markovText;
+
 function preload() {
+    //Dateipfad zur .csv Datei
     table = loadTable(`../../assets/Schlagzeilen.csv`, 'ssv');
 
 }
 
-
-
 function setup() {
-
-    console.log(table.rows[0])
     createCanvas(800, 800);
 
-    print(table);
-
+    
+    //Liste mit Folgewörter erstellen
     createMarkov();
-    //generateFirstWord();
     generateFirstWordWithQuotationMark();
 
-    setInterval(() => {
-        generateNextWord();
-    }, 100)
+    //Kondition, dass die Generation aufhört
+    while(!currentWord.endsWith("»")) {
+        generateNextWord()
+    }
 }
 
 function draw() {
     background(200);
-    text("«" , 10, 30, width - 20, height - 20);
     text(markovText, 15, 30, width - 20, height - 20);
     fill(0);
 
 }
 
+//Möglichkeit Kommas ebenfalls abzutrennen, aber ist momentan nicht so nötig und nur kompliziert
 function createMarkov() {
     let temp = [];
-
     table.rows.forEach(row => temp = [...temp, ...row.arr[0].split(" ")]);
 
 
     temp.forEach((word, i) => {
 
-        if (i == temp.length) return;
+        if (i === temp.length) return;
 
         if (word in dict) {
             dict[word].push(temp[i + 1])
@@ -51,17 +53,16 @@ function createMarkov() {
             dict[word] = [temp[i + 1]];
         }
     })
-
-    console.log(dict);
 }
 
 
 function generateFirstWordWithQuotationMark() {
-    let wordsThatStartWithQuote = Object.keys(dict).filter(key => key.startsWith('«'))
+    let wordsThatStartWithQuote = Object.keys(dict).filter(key => key.startsWith("«"));
+    print(wordsThatStartWithQuote);
 
     let randomWordsThatStartWithQuote = wordsThatStartWithQuote[getRandomInt(wordsThatStartWithQuote.length)];
 
-    currentWord = markovText = dict[randomWordsThatStartWithQuote][getRandomInt(dict[randomWordsThatStartWithQuote].length)];
+    currentWord = markovText = randomWordsThatStartWithQuote;
 }
 
 
@@ -72,9 +73,7 @@ function getRandomInt(max) {
 function generateNextWord() {
     let nextWord = dict[currentWord][getRandomInt(dict[currentWord].length)];
     currentWord = nextWord;
-    if (currentWord === undefined) return;
     markovText += ` ${nextWord}`;
-    
 }
 
 
