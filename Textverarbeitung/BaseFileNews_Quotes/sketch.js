@@ -11,7 +11,7 @@ let markovText;
 
 function preload() {
     //Dateipfad zur .csv Datei
-    table = loadTable(`../../assets/Schlagzeilen.csv`, 'ssv');
+    table = loadTable(`Schlagzeilen.csv`, 'ssv');
 
 }
 
