@@ -11,23 +11,22 @@ let markovText;
 
 function preload() {
     //Dateipfad zur .csv Datei
-    table = loadTable(`Schlagzeilen.csv`, 'ssv');
-
+    table = loadTable(`Fragen_Schlagzeilen.csv`, 'ssv');
+    
 }
 
 function setup() {
     createCanvas(800, 800);
-
     
     //Liste mit Folgewörter erstellen
     createMarkov();
-    generateFirstWordWithQuotationMark();
-    //generateFirstWordWithUppercase();
+    generateFirstWordWithUppercase();
 
     //Kondition, dass die Generation aufhört
-    while(!currentWord.endsWith("»")) {
+    while(!currentWord.includes("?")) {
         generateNextWord()
     }
+    
 }
 
 function draw() {
@@ -35,6 +34,13 @@ function draw() {
     text(markovText, 15, 30, width - 20, height - 20);
     fill(0);
 
+}
+
+function mousePressed(){
+    if(currentWord.includes("?")) generateFirstWordWithUppercase();
+    while(!currentWord.includes("?")) {
+        generateNextWord()
+    }
 }
 
 //Möglichkeit Kommas ebenfalls abzutrennen, aber ist momentan nicht so nötig und nur kompliziert
@@ -57,14 +63,6 @@ function createMarkov() {
 }
 
 
-function generateFirstWordWithQuotationMark() {
-    let wordsThatStartWithQuote = Object.keys(dict).filter(key => key.startsWith("«"));
-    print(wordsThatStartWithQuote);
-
-    let randomWordsThatStartWithQuote = wordsThatStartWithQuote[getRandomInt(wordsThatStartWithQuote.length)];
-
-    currentWord = markovText = randomWordsThatStartWithQuote;
-}
 function generateFirstWordWithUppercase(){
     let wordThatStartsWithUppercase =  Object.keys(dict).filter(checkIfUpperCase);
     let randomWordThatStartsWithUppercase = wordThatStartsWithUppercase[getRandomInt(wordThatStartsWithUppercase.length)];
