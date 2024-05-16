@@ -1,0 +1,48 @@
+
+
+*{
+    font-family: "Jersey 25 Charted", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: black;
+    color: white;
+    height: 99%;
+    width: 99%;
+}
+
+.bubbles{
+   
+    /*background: lightgray;*/
+    /*border-radius: 25px;*/
+    /*text-align: center;*/
+    /*align-content: center;*/
+    /*padding: 5%;*/
+    /*margin: 10px;*/
+    /*width: 20%;*/
+}
+#Titel{
+    height: 30%;
+    font-size: xx-large;
+    margin-left: 1%;
+}
+
+.Content{
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.link{
+    /*height:100%;*/
+    /*width:100%;*/
+    background: lightgray;
+    border-radius: 25px;
+    text-align: center;
+    align-content: center;
+    padding: 5%;
+    margin: 10px;
+    width: 20%;
+    color: black;
+}
