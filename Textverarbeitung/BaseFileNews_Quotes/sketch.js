@@ -8,6 +8,8 @@ let currentWord = "";
 
 //Generierter Text
 let markovText;
+let voice = new p5.Speech();
+let yAxis = 1;
 
 function preload() {
     //Dateipfad zur .csv Datei
@@ -16,24 +18,49 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(800, 800);
+    createCanvas(800, 400);
 
     
     //Liste mit Folgewörter erstellen
     createMarkov();
     generateFirstWordWithQuotationMark();
-    //generateFirstWordWithUppercase();
+    
 
     //Kondition, dass die Generation aufhört
     while(!currentWord.endsWith("»")) {
         generateNextWord()
     }
+
+    voice.setVoice(2);
+    textSize(40);
+    
+    voice.speak(markovText);
+    
 }
 
 function draw() {
-    background(200);
-    text(markovText, 15, 30, width - 20, height - 20);
-    fill(0);
+    background(255,0,0);
+
+    
+
+    text(markovText,10 ,  yAxis % height, width - 20, height - 20);
+    //stroke(255, 255, 255);
+    fill(255);
+    textStyle(BOLD);
+
+
+    if (yAxis % height === 0){
+        generateFirstWordWithQuotationMark()
+        while (!currentWord.includes("»")) {
+            generateNextWord()
+        }
+
+        voice.speak(markovText);
+        
+
+    }
+
+    yAxis += 1;
 
 }
 
@@ -65,13 +92,7 @@ function generateFirstWordWithQuotationMark() {
 
     currentWord = markovText = randomWordsThatStartWithQuote;
 }
-function generateFirstWordWithUppercase(){
-    let wordThatStartsWithUppercase =  Object.keys(dict).filter(checkIfUpperCase);
-    let randomWordThatStartsWithUppercase = wordThatStartsWithUppercase[getRandomInt(wordThatStartsWithUppercase.length)];
-    
-    currentWord = markovText = randomWordThatStartsWithUppercase;
-    
-}
+
    
 
 
