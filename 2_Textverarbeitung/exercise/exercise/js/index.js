@@ -82,7 +82,7 @@ function setup() {
   let canvas = createCanvas(innerWidth, innerHeight);
   canvas.parent('#p5');
   //noCanvas()
-  loadStrings('assets/txt/shelley.txt', load_text)
+  loadStrings('0_assets/txt/shelley.txt', load_text)
 }
 
 function draw() {

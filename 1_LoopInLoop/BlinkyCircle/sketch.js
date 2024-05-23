@@ -3,7 +3,7 @@ let minRadius = 10;
 let maxRadius = 200;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(500, 500);
   background(255);
   noFill();
   strokeWeight(2);
