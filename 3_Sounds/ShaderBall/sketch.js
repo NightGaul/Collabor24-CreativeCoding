@@ -21,7 +21,7 @@ function preload() {
 
 function setup() {
   // Setup canvas with WebGL
-  createCanvas(windowWidth/2, windowHeight, WEBGL);
+  createCanvas(500, 500, WEBGL);
 
   // Apply the shader
   shader(myShader);
@@ -113,9 +113,4 @@ function mousePressed() {
     audio.loop();
     isPressed = true;
   }
-}
-
-// Helper function to manage window resizing
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
 }
