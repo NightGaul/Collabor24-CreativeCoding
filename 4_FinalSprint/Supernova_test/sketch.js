@@ -30,7 +30,7 @@ function preload() {
     
     img = loadImage('Sonne.jpg');
     img2 = loadImage('Neutronenstern.jpg')
-    backgroundImg = loadImage('sunflowers_puresky.jpg');
+    backgroundImg = loadImage('Sternenhimmel.jpg');
 
 }
 
@@ -58,13 +58,11 @@ function setup() {
 
     // Ensure texture coordinates are enabled
     noStroke();
-    textureMode(NORMAL);
 }
 
 function draw() {
     
     orbitControl();
-    
     panorama(backgroundImg);
 
     // Apply blur effect to the drawing context
@@ -78,24 +76,18 @@ function draw() {
         shockwaveToggle = true;
     }
 
-    waveForm = fftVocal.waveform(512);
     const volume = amp.getLevel();
     let freq = fft.getCentroid() * 0.001;
-
     let angleSpeed = map(freq, 0, 255, 0.01, 0.1);
     angle += angleSpeed * volume;
+    waveForm = fftVocal.waveform(512);
 
     
     // Calculate the camera position
     let camX = cos(angle) * 2000;
     let camY = sin(angle) * 2000;
     let camZ = sin(angle)* 2000;
-
-    // Set the camera position
     cam.setPosition(camX, camY, camZ);
-
-    // Look at the center
-    
     cam.lookAt(0,0,0);
     
     // Update jitter value every second
@@ -122,16 +114,12 @@ function draw() {
     // Pass the sphere texture to the shader
     myShader.setUniform('uTexture', img);
 
-    // Draw sphere with high detail
     sphere(200, 24, 24);
 
     pop();
-
     // Draw the shockwave torus with a different texture
     if (shockwaveToggle) {
         push();
-        
-
         // Draw the torus
         shockwave();
 
@@ -149,6 +137,7 @@ function draw() {
     let detail = 6; // Number of vertices around each circle
 
     // Draw the waveform lines
+    stroke(222, 99, 154);
     beginShape(TRIANGLE_STRIP);
     for (let i = 0; i < waveForm.length; i++) {
         let theta = map(i, 0, waveForm.length, 0, TWO_PI);
@@ -171,9 +160,6 @@ function draw() {
     endShape();
 
 
-
-
-    
     
 }
 
@@ -189,8 +175,4 @@ function shockwave() {
     // Draw the torus
     torus(radiusT, 10);
 }
-
-// function mouseClicked() {
-//     shockwaveToggle = true;
-// }
 
