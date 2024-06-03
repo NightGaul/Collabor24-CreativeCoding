@@ -54,7 +54,7 @@ function setup() {
     audioInstrumental.loop();
     audioVocal.loop();
 
-    peakDetect = new p5.PeakDetect(20, 20000, 0.45, 20);
+    peakDetect = new p5.PeakDetect(20, 20000, 0.35, 20);
 
     // Ensure texture coordinates are enabled
     noStroke();
@@ -62,7 +62,7 @@ function setup() {
 
 function draw() {
     
-    orbitControl();
+    //orbitControl();
     panorama(backgroundImg);
 
     // Apply blur effect to the drawing context
@@ -88,6 +88,7 @@ function draw() {
     let camY = sin(angle) * 2000;
     let camZ = sin(angle)* 2000;
     cam.setPosition(camX, camY, camZ);
+   
     cam.lookAt(0,0,0);
     
     // Update jitter value every second
