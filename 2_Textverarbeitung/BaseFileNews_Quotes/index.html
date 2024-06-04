@@ -12,6 +12,8 @@
     <script src="../../0_libraries/p5.min.js"></script>
     <script src="../../0_libraries/p5.sound.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/IDMNYU/p5.js-speech@0.0.3/lib/p5.speech.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
 
 
 </head>
@@ -19,5 +21,14 @@
 <main>
 </main>
 <script src="sketch.js"></script>
+<pre><code id="code" class="language-javascript">
+
+      }</code></pre>
 </body>
 </html>
+<script>
+    fetch("./sketch.js")
+        .then(response => response.text())
+        .then(text => document.getElementById("code").innerHTML = text)
+        .then(()=> Prism.highlightAll());
+</script>

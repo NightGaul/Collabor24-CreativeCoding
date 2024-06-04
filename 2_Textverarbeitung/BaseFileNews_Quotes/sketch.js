@@ -18,7 +18,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(800, 400);
+    createCanvas(600, 400);
 
     
     //Liste mit Folgewörter erstellen

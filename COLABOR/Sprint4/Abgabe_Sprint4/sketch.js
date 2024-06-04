@@ -2,7 +2,7 @@ let particles = [];
 let planets = [];
 let explosionAmmount = 250;
 let novaRotationSpeed = 0.1;
-let shockwaveSize = 3000;
+let shockwaveSize = 5000;
 
 let phase1 = true;
 let phase2 = false;
